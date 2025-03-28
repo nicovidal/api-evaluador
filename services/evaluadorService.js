@@ -1,4 +1,5 @@
-exports.evaluarCliente = (edad, ingresos, deuda, score) => {
+// Servicio que maneja la lógica de evaluación de clientes
+exports.evaluarCliente = (score, promedioImponible, sumaDeudas) => {
     if (score < 500) {
         return {
             decision: "Rechazado",
@@ -7,15 +8,15 @@ exports.evaluarCliente = (edad, ingresos, deuda, score) => {
         };
     }
 
-    if (edad < 18) {
+    if (promedioImponible < 1500) {
         return {
             decision: "Rechazado",
-            razon: "Cliente menor de edad",
-            codigo: "E1"
+            razon: "Promedio imponible demasiado bajo",
+            codigo: "P1"
         };
     }
 
-    let capacidadPago = ingresos - deuda;
+    let capacidadPago = promedioImponible - sumaDeudas;
 
     if (capacidadPago > 1000) {
         return {
@@ -33,7 +34,7 @@ exports.evaluarCliente = (edad, ingresos, deuda, score) => {
         return {
             decision: "Rechazado",
             razon: "Capacidad de pago insuficiente",
-            codigo: "P1"
+            codigo: "D1"
         };
     }
 };

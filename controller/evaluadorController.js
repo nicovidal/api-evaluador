@@ -3,23 +3,28 @@ const evaluadorService = require("../services/evaluadorService");
 
 const evaluador = async (req, res = response) => {
     try {
- 
-        let { nombre, edad, ingresos, deuda, score } = req.body;
+        let { rut, datosEvaluacion } = req.body;
 
-
-        if (!nombre || edad === undefined || ingresos === undefined || deuda === undefined || score === undefined) {
+    
+        if (!rut || !datosEvaluacion || datosEvaluacion.score === undefined || 
+            datosEvaluacion.promedioImponible === undefined || datosEvaluacion.sumaDeudas === undefined) {
             return res.status(400).json({
                 error: "Faltan datos en la solicitud",
                 codigo: "M1"
             });
         }
 
-        let resultadoEvaluacion = evaluadorService.evaluarCliente(edad, ingresos, deuda, score);
+        let { score, promedioImponible, sumaDeudas } = datosEvaluacion;
+
+        let resultadoEvaluacion = evaluadorService.evaluarCliente(score, promedioImponible, sumaDeudas);
 
         return res.status(200).json({
             mensaje: "Evaluación realizada con éxito",
-            cliente: nombre,
-            resultado: resultadoEvaluacion
+            clienteEvaluado: {
+                rut: rut,
+                datosEvaluacion: datosEvaluacion,
+                resultado: resultadoEvaluacion
+            }
         });
 
     } catch (error) {
