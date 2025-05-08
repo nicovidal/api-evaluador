@@ -1,5 +1,18 @@
-// Servicio que maneja la lógica de evaluación de clientes
-exports.evaluarCliente = (score, promedioImponible, sumaDeudas) => {
+const evaluarOfertaService=(ofertaCliente)=>{
+    if(ofertaCliente){
+
+        console.log('Cliente con oferta')
+
+        return true
+    }
+}
+
+
+
+
+
+
+const evaluarClienteService = (score, promedioImponible, sumaDeudas) => {
     if (score < 500) {
         return {
             decision: "Rechazado",
@@ -35,6 +48,9 @@ exports.evaluarCliente = (score, promedioImponible, sumaDeudas) => {
             decision: "Rechazado",
             razon: "Capacidad de pago insuficiente",
             codigo: "D1"
-        };
+        }; 
     }
 };
+
+
+module.exports = { evaluarClienteService,evaluarOfertaService};

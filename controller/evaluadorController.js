@@ -16,7 +16,7 @@ const evaluador = async (req, res = response) => {
 
         let { score, promedioImponible, sumaDeudas } = datosEvaluacion;
 
-        let resultadoEvaluacion = evaluadorService.evaluarCliente(score, promedioImponible, sumaDeudas);
+        let resultadoEvaluacion = evaluadorService.evaluarClienteService(score, promedioImponible, sumaDeudas);
 
         return res.status(200).json({
             mensaje: "Evaluación realizada con éxito",
